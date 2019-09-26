@@ -1,0 +1,54 @@
+body {
+}
+
+.App {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+$grey-lighten-2: #e0e0e0;
+$grey-lighten-3: #eeeeee;
+
+#content {
+  flex: 1 0 auto;
+
+  #panel-left {
+    background-color: $grey-lighten-2;
+    position: relative;
+
+    #add-component-btn {
+      position: absolute;
+      right: 0.75rem;
+      top: 0.75rem;
+    }
+
+    #component-tree {
+      margin-top: 75px;
+    }
+  }
+
+  #panel-right {
+    background-color: $grey-lighten-3;
+  }
+}
+
+#navbar {
+  box-shadow: none;
+
+  .brand-logo {
+    padding-left: 1rem;
+  }
+
+  .nav-mobile {
+    padding-right: 1rem;
+  }
+}
+
+.panel {
+  min-height: 100vh !important;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
