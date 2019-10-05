@@ -8,7 +8,7 @@ const Navbar: React.FC = () => {
         <NavLink to="/" className="brand-logo">
           Project Sprout
         </NavLink>
-        <ul id="nav-mobile" className="right hide-on-med-and-down"></ul>
+        <ul id="nav-mobile" className="right"></ul>
       </div>
     </nav>
   );

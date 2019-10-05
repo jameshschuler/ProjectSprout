@@ -55,6 +55,11 @@
       document.addEventListener("DOMContentLoaded", function() {
         var elems = document.querySelectorAll(".modal");
         var instances = window.M.Modal.init(elems, {});
+
+        var tooltipElems = document.querySelectorAll(".tooltipped");
+        var tooltipInstances = M.Tooltip.init(tooltipElems, {
+          margin: 0
+        });
       });
     </script>
   </body>

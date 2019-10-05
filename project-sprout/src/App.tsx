@@ -4,6 +4,7 @@ import "../src/styles/styles.scss";
 import Content from "./components/layout/Content";
 import Footer from "./components/layout/Footer";
 import Navbar from "./components/layout/Navbar";
+import ContextProvider from "./store/contexts/Context";
 
 declare global {
   interface Window {
@@ -13,16 +14,18 @@ declare global {
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <div className="App">
-        <Navbar />
+    <ContextProvider>
+      <Router>
+        <div className="App">
+          <Navbar />
 
-        <Route path="/" exact component={Content} />
+          <Route path="/" exact component={Content} />
 
-        {/* <Content /> */}
-        <Footer />
-      </div>
-    </Router>
+          {/* <Content /> */}
+          <Footer />
+        </div>
+      </Router>
+    </ContextProvider>
   );
 };
 
