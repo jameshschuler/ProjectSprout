@@ -1,6 +1,6 @@
 import React from "react";
-import AddProject from "../AddProject";
 import ComponentTreeList from "../ComponentTreeList";
+import CreateProject from "../CreateProject";
 import ProjectList from "../ProjectList";
 import Panel from "./Panel";
 
@@ -9,7 +9,7 @@ const Content: React.FC = () => {
     <div id="content">
       <div className="row mb-0">
         <Panel _id="panel-left" classes="m4 s4 panel">
-          <AddProject />
+          <CreateProject />
           <ProjectList />
           <ComponentTreeList />
         </Panel>

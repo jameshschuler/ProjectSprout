@@ -1,0 +1,6 @@
+export enum ActionType {
+  CREATE_PROJECT = "CREATE_PROJECT",
+  FETCHING = "FETCHING",
+  ERROR = "ERROR",
+  SUCCESS = "SUCCESS"
+}

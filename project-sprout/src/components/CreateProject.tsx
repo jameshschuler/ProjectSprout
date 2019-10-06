@@ -1,52 +1,54 @@
-import React, { useContext } from "react";
+import React from "react";
+import { connect } from "react-redux";
 import { isEmpty } from "validator";
-import { ContextProps } from "../models/ContextProps";
-import { Context } from "../store/contexts/Context";
+import { Project } from "../models/Project";
+import { createProject } from "../store/actions/ProjectActions";
+import { RootState } from "../store/reducers/RootReducer";
 import Tooltip from "./helpers/Tooltip";
 
-const AddProject = () => {
-  const { user } = useContext(Context) as ContextProps;
+interface CreateProjectProps {
+  createProject: any;
+  user: boolean;
+}
 
+const CreateProject: React.FC<CreateProjectProps> = ({
+  createProject,
+  user
+}) => {
   const saveProject = (e: any) => {
     e.preventDefault();
 
-    const addProjectForm: HTMLFormElement | null = document.querySelector(
-      "#add-project #add-project-form"
+    const createProjectForm: HTMLFormElement | null = document.querySelector(
+      "#create-project #create-project-form"
     );
 
-    const projectName = addProjectForm!.projectName.value;
-    const projectDescription = addProjectForm!.projectDescription.value;
-    console.log(projectName, projectDescription);
+    const projectName = createProjectForm!.projectName.value;
+    const projectDescription = createProjectForm!.projectDescription.value;
 
-    if (isEmpty(projectName)) {
-      console.log("error");
-    } else {
-      console.log("calling action to save");
-      // TODO:
-      // wait for response
-      // show result modal: success or error message
-      // close modal
+    if (!isEmpty(projectName)) {
+      createProject(new Project(projectName, projectDescription));
+
+      createProjectForm!.reset();
+
       M.Modal.getInstance(
-        document.getElementById("add-project-modal")!
+        document.getElementById("create-project-modal")!
       ).close();
     }
-
-    // TODO: call action
   };
 
   return (
-    <div id="add-project">
+    <div id="create-project">
       <button
-        id="add-component-btn"
+        id="load-create-project-modal-btn"
         className="btn modal-trigger btn-floating waves-effect waves-light btn-small white"
-        data-target="add-project-modal"
+        data-target="create-project-modal"
       >
         <i className="fas fa-plus black-text"></i>
       </button>
-      <div id="add-project-modal" className="modal">
+      <div id="create-project-modal" className="modal">
         <div className="modal-content">
           <h4>
-            Add Project
+            Create Project
             <Tooltip
               tooltipClasses="margin-left-xs"
               tooltipPosition="right"
@@ -57,7 +59,7 @@ const AddProject = () => {
           </h4>
           <p>A bunch of text</p>
 
-          <form id="add-project-form" onSubmit={(e: any) => saveProject(e)}>
+          <form id="create-project-form" onSubmit={(e: any) => saveProject(e)}>
             <div className="row">
               <div className="input-field col s12">
                 <input
@@ -65,8 +67,13 @@ const AddProject = () => {
                   name="projectName"
                   type="text"
                   className="validate"
+                  required
                 />
                 <label htmlFor="project-name">Name</label>
+                <span
+                  className="helper-text"
+                  data-error="Name is required."
+                ></span>
               </div>
             </div>
             <div className="row">
@@ -87,7 +94,7 @@ const AddProject = () => {
           </button>
           <button
             className="waves-effect waves-green btn-flat"
-            form="add-project-form"
+            form="create-project-form"
             type="submit"
           >
             Save
@@ -98,4 +105,15 @@ const AddProject = () => {
   );
 };
 
-export default AddProject;
+const mapStateToProps = (state: RootState) => {
+  return {
+    user: !!state.global.user
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  {
+    createProject
+  }
+)(CreateProject);
