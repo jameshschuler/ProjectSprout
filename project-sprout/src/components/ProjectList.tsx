@@ -1,13 +1,27 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Project } from "../models/Project";
+import { deleteProject } from "../store/actions/ProjectActions";
 import { RootState } from "../store/reducers/RootReducer";
 
 interface ProjectListProps {
   projects: Project[];
+  deleteProject: (id: string) => any;
 }
 
-const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
+const ProjectList: React.FC<ProjectListProps> = ({
+  projects,
+  deleteProject
+}) => {
+  const removeProject = (id: string) => {
+    deleteProject(id);
+  };
+
+  const displayProjectInformation = (project: Project) => {
+    console.log(project);
+    // TODO: load popup or modal
+  };
+
   return (
     <div id="project-list">
       <h4>Projects</h4>
@@ -18,6 +32,16 @@ const ProjectList: React.FC<ProjectListProps> = ({ projects }) => {
               return (
                 <li key={index} className="collection-item">
                   {project.name}
+                  <div className="actions">
+                    <i
+                      className="fas fa-info-circle fa-fw more-info"
+                      onClick={() => displayProjectInformation(project)}
+                    ></i>
+                    <i
+                      className="fas fa-times fa-fw remove-item"
+                      onClick={() => removeProject(project.id!)}
+                    ></i>
+                  </div>
                 </li>
               );
             })}
@@ -35,4 +59,7 @@ const mapStateToProps = (state: RootState) => {
   };
 };
 
-export default connect(mapStateToProps)(ProjectList);
+export default connect(
+  mapStateToProps,
+  { deleteProject }
+)(ProjectList);

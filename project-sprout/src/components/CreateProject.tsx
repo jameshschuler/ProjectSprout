@@ -7,7 +7,7 @@ import { RootState } from "../store/reducers/RootReducer";
 import Tooltip from "./helpers/Tooltip";
 
 interface CreateProjectProps {
-  createProject: any;
+  createProject: (project: Project) => any;
   user: boolean;
 }
 
@@ -26,8 +26,11 @@ const CreateProject: React.FC<CreateProjectProps> = ({
     const projectDescription = createProjectForm!.projectDescription.value;
 
     if (!isEmpty(projectName)) {
-      createProject(new Project(projectName, projectDescription));
-
+      const project: Project = {
+        name: projectName,
+        description: projectDescription
+      };
+      createProject(project);
       createProjectForm!.reset();
 
       M.Modal.getInstance(
