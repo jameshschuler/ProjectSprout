@@ -1,29 +1,47 @@
 #project-list {
   margin-top: 50px;
 
-  .collection-item {
+  .project-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    .actions {
+    .project-title {
       display: flex;
       align-items: center;
 
-      .more-info {
-        color: #42a5f5;
+      i {
+        color: #d32f2f;
+        font-size: 1.25rem;
         margin-right: 0.25rem;
 
         &:hover {
           cursor: pointer;
-          color: #1e88e5;
+          color: #b71c1c;
         }
+      }
+    }
+
+    .project-actions {
+      display: flex;
+      align-items: center;
+
+      .action {
+        font-size: 1.25rem;
+        margin-right: 0;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
+
+      .edit-item {
       }
 
       .remove-item {
         color: #d32f2f;
+
         &:hover {
-          cursor: pointer;
           color: #b71c1c;
         }
       }

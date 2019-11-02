@@ -41,6 +41,7 @@ export const createProject = (project: Project) => async (
   } else {
     let account = JSON.parse(localStorage.getItem("account")!) as Account;
     project.id = uuidv1();
+    project.isLocalOnly = true;
 
     account.projects.push(project);
 
@@ -71,5 +72,42 @@ export const deleteProject = (id: string) => async (
     localStorage.setItem("account", JSON.stringify(account));
 
     dispatch({ type: ActionType.DELETE_PROJECT, payload: projects });
+  }
+};
+
+/**
+ *
+ * @param project
+ */
+export const updateProject = (project: Project) => async (
+  dispatch: any,
+  getState: any
+) => {
+  const state: RootState = getState();
+
+  if (state.global.user) {
+    dispatch({ type: ActionType.FETCHING });
+    // TODO: add to firestore
+  } else {
+    let account = JSON.parse(localStorage.getItem("account")!) as Account;
+
+    let existingProject = account.projects.filter(
+      existingProject => existingProject.id !== project.id!
+    )[0];
+    if (existingProject) {
+      console.log(existingProject);
+
+      existingProject.name = project.name;
+      existingProject.description = project.description;
+
+      console.log(existingProject);
+      console.log(account.projects);
+
+      localStorage.setItem("account", JSON.stringify(account));
+
+      dispatch({ type: ActionType.UPDATE_PROJECT, payload: account.projects });
+    } else {
+      // TODO: show error message
+    }
   }
 };

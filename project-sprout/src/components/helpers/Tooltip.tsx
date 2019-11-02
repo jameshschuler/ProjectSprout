@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 interface TooltipProps {
   iconClass: string;
@@ -15,6 +15,16 @@ const Tooltip: React.FC<TooltipProps> = ({
   tooltipText,
   visible
 }) => {
+  if (visible === undefined) visible = true;
+
+  // TODO: this can be improved to only affect this tooltip
+  useEffect(() => {
+    var tooltipElems = document.querySelectorAll(".tooltipped");
+    M.Tooltip.init(tooltipElems, {
+      margin: 0
+    });
+  }, []);
+
   return visible ? (
     <a
       className={`tooltipped ${tooltipClasses}`}

@@ -1,7 +1,7 @@
 import React from "react";
 import ComponentTreeList from "../ComponentTreeList";
-import CreateProject from "../CreateProject";
-import ProjectList from "../ProjectList";
+import CreateProject from "../project/CreateProject";
+import ProjectList from "../project/ProjectList";
 import Panel from "./Panel";
 
 const Content: React.FC = () => {
