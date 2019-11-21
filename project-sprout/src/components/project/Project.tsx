@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { Project } from "../../models/Project";
+import { Project } from "../../types/Project";
 import { deleteProject } from "../../store/actions/ProjectActions";
 import Tooltip from "../helpers/Tooltip";
 import EditProject from "./EditProject";

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { isEmpty } from "validator";
-import { Project } from "../../models/Project";
 import { updateProject } from "../../store/actions/ProjectActions";
 import { RootState } from "../../store/reducers/RootReducer";
+import { Project } from "../../types/Project";
 import Tooltip from "../helpers/Tooltip";
 
 interface EditProjectProps {
@@ -116,7 +116,7 @@ const EditProject: React.FC<EditProjectProps> = ({
 
 const mapStateToProps = (state: RootState) => {
   return {
-    user: !!state.global.user
+    user: !!state.auth.user
   };
 };
 

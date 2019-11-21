@@ -1,5 +1,5 @@
-import { Project } from "../../models/Project";
-import { ActionType } from "../types/ActionType";
+import { Project } from "../../types/Project";
+import { ActionType } from "../../types/ActionType";
 import { Action, ProjectState } from "./RootReducer";
 
 const initialState: ProjectState = {

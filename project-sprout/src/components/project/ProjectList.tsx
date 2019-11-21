@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Project } from "../../models/Project";
 import { deleteProject } from "../../store/actions/ProjectActions";
 import { RootState } from "../../store/reducers/RootReducer";
+import { Project } from "../../types/Project";
 import ProjectComponent from "./Project";
 
 interface ProjectListProps {

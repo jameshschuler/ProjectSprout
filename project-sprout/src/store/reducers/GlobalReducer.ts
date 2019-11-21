@@ -1,10 +1,9 @@
-import { ActionType } from "../types/ActionType";
+import { ActionType } from "../../types/ActionType";
 import { Action, GlobalState } from "./RootReducer";
 
 const initialState: GlobalState = {
   fetching: false,
-  message: null,
-  user: null
+  response: undefined
 };
 
 const globalReducer = (state: GlobalState = initialState, action: Action) => {
@@ -22,7 +21,8 @@ const globalReducer = (state: GlobalState = initialState, action: Action) => {
     case ActionType.ERROR:
       return {
         ...state,
-        fetching: false
+        fetching: false,
+        response: action.payload
       };
     default:
       return state;

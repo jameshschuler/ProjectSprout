@@ -1,6 +1,8 @@
 import { combineReducers } from "redux";
-import { Project } from "../../models/Project";
-import { ActionType } from "../types/ActionType";
+import { ActionType } from "../../types/ActionType";
+import { FirebaseResponse } from "../../types/FirebaseResponse";
+import { Project } from "../../types/Project";
+import authReducer from "./AuthReducer";
 import globalReducer from "./GlobalReducer";
 import projectReducer from "./ProjectReducer";
 
@@ -12,6 +14,7 @@ export interface Action {
 export interface RootState {
   project: ProjectState;
   global: GlobalState;
+  auth: AuthState;
 }
 
 export interface ProjectState {
@@ -20,11 +23,15 @@ export interface ProjectState {
 
 export interface GlobalState {
   fetching: boolean;
-  message: any;
+  response?: FirebaseResponse;
+}
+
+export interface AuthState {
   user: any;
 }
 
 const rootReducer = combineReducers({
+  auth: authReducer,
   project: projectReducer,
   global: globalReducer
 });

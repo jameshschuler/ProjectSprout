@@ -4,6 +4,8 @@ export enum ActionType {
   UPDATE_PROJECT = "UPDATE_PROJECT",
   LOAD_PROJECT_DATA = "LOAD_PROJECT_DATA",
 
+  SIGNUP = "SIGNUP",
+
   // Global
   FETCHING = "FETCHING",
   ERROR = "ERROR",

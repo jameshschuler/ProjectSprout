@@ -1,14 +1,35 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+  isAuthenticated: boolean;
+}
+
+const Navbar: React.FC<NavbarProps> = ({ isAuthenticated }) => {
   return (
     <nav id="navbar" className="green darken-1">
       <div className="nav-wrapper">
         <NavLink to="/" className="brand-logo">
-          Project Sprout
+          Sprout
         </NavLink>
-        <ul id="nav-mobile" className="right"></ul>
+        <ul id="nav-mobile" className="right">
+          {isAuthenticated ? (
+            <li></li>
+          ) : (
+            <>
+              <li>
+                <a href="#login-modal" className="modal-trigger">
+                  Login
+                </a>
+              </li>
+              <li>
+                <a href="#signup-modal" className="modal-trigger">
+                  Sign Up
+                </a>
+              </li>
+            </>
+          )}
+        </ul>
       </div>
     </nav>
   );
