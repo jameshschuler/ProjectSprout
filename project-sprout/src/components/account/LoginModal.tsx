@@ -23,6 +23,8 @@ const LoginModal: React.FC<LoginModalProps> = () => {
     <div id="login-modal" className="modal">
       <div className="modal-content">
         <h4>Login!</h4>
+        <p>Enter your email and password get started now!</p>
+
         <form id="login-form" onSubmit={(e: any) => submit(e)}>
           <div className="row">
             <div className="input-field col s12">

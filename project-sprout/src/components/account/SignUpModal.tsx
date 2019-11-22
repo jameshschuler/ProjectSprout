@@ -1,19 +1,36 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { signup } from "../../store/actions/AuthActions";
 import { RootState } from "../../store/reducers/RootReducer";
 import { AlertType } from "../../types/AlertType";
 import { FirebaseResponse } from "../../types/FirebaseResponse";
+import { closeModal } from "../../utilities";
 import Alert from "../helpers/Alert";
 
 interface SignUpModalProps {
+  isAuthenticated: boolean;
   signup: (email: string, password: string) => any;
   response?: FirebaseResponse;
 }
 
-const SignUpModal: React.FC<SignUpModalProps> = ({ signup, response }) => {
+const SignUpModal: React.FC<SignUpModalProps> = ({
+  isAuthenticated,
+  signup,
+  response
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const signupForm: HTMLFormElement | null = document.getElementById(
+        "signup-form"
+      ) as HTMLFormElement;
+      signupForm!.reset();
+
+      closeModal("signup-modal");
+    }
+  }, [isAuthenticated]);
 
   const submit = async (e: any) => {
     e.preventDefault();
@@ -26,8 +43,6 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ signup, response }) => {
     const password = signupForm!.password.value;
 
     await signup(email, password);
-
-    // TODO: check for user and close modal
   };
 
   return (
@@ -95,7 +110,8 @@ const SignUpModal: React.FC<SignUpModalProps> = ({ signup, response }) => {
 
 const mapStateToProps = (state: RootState) => {
   return {
-    response: state.global.response
+    response: state.global.response,
+    isAuthenticated: !!state.auth.user
   };
 };
 

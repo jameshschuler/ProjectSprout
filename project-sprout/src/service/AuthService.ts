@@ -20,6 +20,16 @@ const signup = async (
   }
 };
 
+const signout = async (): Promise<boolean> => {
+  try {
+    await firebase.auth().signOut();
+    return true;
+  } catch (err) {
+    return false;
+  }
+};
+
 export const authService = {
-  signup
+  signup,
+  signout
 };

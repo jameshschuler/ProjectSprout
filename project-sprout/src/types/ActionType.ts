@@ -5,6 +5,8 @@ export enum ActionType {
   LOAD_PROJECT_DATA = "LOAD_PROJECT_DATA",
 
   SIGNUP = "SIGNUP",
+  LOGIN = "LOGIN",
+  SIGNOUT = "SIGNOUT",
 
   // Global
   FETCHING = "FETCHING",
