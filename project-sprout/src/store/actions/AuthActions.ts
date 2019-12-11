@@ -12,6 +12,7 @@ export const signup = (email: string, password: string) => async (
   const response = await authService.signup(email, password);
   if (response.error) {
     dispatch({ type: ActionType.ERROR, payload: response });
+    return;
   }
 
   const user = response.credentials!.user as firebase.User;
@@ -40,8 +41,22 @@ export const loginLocally = (payload: User) => (dispatch: any) => {
 export const login = (email: string, password: string) => async (
   dispatch: any
 ) => {
-  // TODO:
-  // dispatch({ type: ActionType.LOGIN, payload });
+  const response = await authService.login(email, password);
+
+  if (response.error) {
+    dispatch({ type: ActionType.ERROR, payload: response });
+    return;
+  }
+
+  const user = response.credentials!.user as firebase.User;
+
+  const payload = {
+    email: user!.email,
+    uid: user!.uid,
+    emailVerified: user!.emailVerified
+  };
+
+  dispatch({ type: ActionType.LOGIN, payload });
 };
 
 export const signout = () => async (dispatch: any) => {

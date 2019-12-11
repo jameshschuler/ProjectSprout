@@ -1,12 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { login } from "../../store/actions/AuthActions";
+import { RootState } from "../../store/reducers/RootReducer";
+import { AlertType } from "../../types/AlertType";
+import { FirebaseResponse } from "../../types/FirebaseResponse";
+import { closeModal } from "../../utilities";
+import Alert from "../helpers/Alert";
 
-interface LoginModalProps {}
+interface LoginModalProps {
+  login: (email: string, password: string) => any;
+  isAuthenticated: boolean;
+  response?: FirebaseResponse;
+}
 
-const LoginModal: React.FC<LoginModalProps> = () => {
+const LoginModal: React.FC<LoginModalProps> = ({
+  isAuthenticated,
+  login,
+  response
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const submit = (e: any) => {
+  useEffect(() => {
+    if (isAuthenticated) {
+      const loginForm: HTMLFormElement | null = document.getElementById(
+        "login-form"
+      ) as HTMLFormElement;
+      loginForm!.reset();
+
+      closeModal("login-modal");
+    }
+  }, [isAuthenticated]);
+
+  const clearForm = () => {
+    const loginForm: HTMLFormElement | null = document.getElementById(
+      "login-form"
+    ) as HTMLFormElement;
+    loginForm!.reset();
+  };
+
+  const submit = async (e: any) => {
     e.preventDefault();
 
     const loginForm: HTMLFormElement | null = document.getElementById(
@@ -16,12 +49,15 @@ const LoginModal: React.FC<LoginModalProps> = () => {
     const email = loginForm!.email.value;
     const password = loginForm!.password.value;
 
-    console.log(email, password);
+    await login(email, password);
   };
 
   return (
     <div id="login-modal" className="modal">
       <div className="modal-content">
+        {response && response.error && (
+          <Alert alertType={AlertType.Error} message={response.error.message} />
+        )}
         <h4>Login!</h4>
         <p>Enter your email and password get started now!</p>
 
@@ -63,7 +99,10 @@ const LoginModal: React.FC<LoginModalProps> = () => {
         </form>
       </div>
       <div className="modal-footer">
-        <button className="modal-close waves-effect waves-red btn-flat">
+        <button
+          className="modal-close waves-effect waves-red btn-flat"
+          onClick={() => clearForm()}
+        >
           Cancel
         </button>
         <button
@@ -78,4 +117,13 @@ const LoginModal: React.FC<LoginModalProps> = () => {
   );
 };
 
-export default LoginModal;
+const mapStateToProps = (state: RootState) => {
+  return {
+    response: state.global.response,
+    isAuthenticated: !!state.auth.user
+  };
+};
+
+export default connect(mapStateToProps, {
+  login
+})(LoginModal);

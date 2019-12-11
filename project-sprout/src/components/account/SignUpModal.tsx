@@ -9,14 +9,14 @@ import Alert from "../helpers/Alert";
 
 interface SignUpModalProps {
   isAuthenticated: boolean;
-  signup: (email: string, password: string) => any;
   response?: FirebaseResponse;
+  signup: (email: string, password: string) => any;
 }
 
 const SignUpModal: React.FC<SignUpModalProps> = ({
   isAuthenticated,
-  signup,
-  response
+  response,
+  signup
 }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -31,6 +31,13 @@ const SignUpModal: React.FC<SignUpModalProps> = ({
       closeModal("signup-modal");
     }
   }, [isAuthenticated]);
+
+  const clearForm = () => {
+    const signupForm: HTMLFormElement | null = document.getElementById(
+      "signup-form"
+    ) as HTMLFormElement;
+    signupForm!.reset();
+  };
 
   const submit = async (e: any) => {
     e.preventDefault();
@@ -93,7 +100,10 @@ const SignUpModal: React.FC<SignUpModalProps> = ({
         </form>
       </div>
       <div className="modal-footer">
-        <button className="modal-close waves-effect waves-red btn-flat">
+        <button
+          className="modal-close waves-effect waves-red btn-flat"
+          onClick={() => clearForm()}
+        >
           Cancel
         </button>
         <button
