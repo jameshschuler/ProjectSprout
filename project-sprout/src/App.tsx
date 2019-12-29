@@ -1,11 +1,16 @@
 import firebase from "firebase";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { loginLocally, signout } from "../src/store/actions/AuthActions";
 import { loadProjectData } from "../src/store/actions/ProjectActions";
+import Signin from "./components/account/Signin";
+import Dashboard from "./components/Dashboard";
+import Home from "./components/Home";
+import Navbar from "./components/Navbar";
 import { firebaseConfig } from "./config/Firebase";
 import { RootState } from "./store/reducers/RootReducer";
+import "./styles/styles.scss";
 import { User } from "./types/User";
 
 declare global {
@@ -51,7 +56,19 @@ const App: React.FC<AppProps> = ({
 
   return (
     <Router>
-      <div className="App"></div>
+      {isAuthenticated !== undefined && (
+        <div className="App">
+          <Navbar isAuthenticated={isAuthenticated} />
+          {isAuthenticated ? (
+            <Route exact path="/" component={Dashboard} />
+          ) : (
+            <>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/signin" component={Signin} />
+            </>
+          )}
+        </div>
+      )}
     </Router>
   );
 };

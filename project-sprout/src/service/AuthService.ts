@@ -1,5 +1,5 @@
 import firebase from "firebase";
-import { Error } from "../types/Error";
+import Error from "../types/Error";
 import { FirebaseResponse } from "../types/FirebaseResponse";
 
 const login = async (

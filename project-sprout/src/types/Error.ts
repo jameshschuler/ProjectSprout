@@ -1,4 +1,4 @@
-export interface Error {
+export default interface Error {
   code: string;
   message: string;
 }

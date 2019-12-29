@@ -24,10 +24,13 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <!-- Compiled and minified CSS -->
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
     />
     <title>React Component Tree Manager</title>
   </head>
@@ -48,19 +51,5 @@
       src="https://kit.fontawesome.com/e568baa144.js"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script>
-      // TODO: may need to call something similar to this whenever we add a modal to the dom
-
-      document.addEventListener("DOMContentLoaded", function() {
-        var elems = document.querySelectorAll(".modal");
-        var instances = window.M.Modal.init(elems, {});
-
-        var tooltipElems = document.querySelectorAll(".tooltipped");
-        var tooltipInstances = M.Tooltip.init(tooltipElems, {
-          margin: 0
-        });
-      });
-    </script>
   </body>
 </html>
