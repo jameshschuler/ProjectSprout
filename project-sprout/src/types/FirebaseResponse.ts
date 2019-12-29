@@ -1,6 +1,4 @@
-import { Error } from "./Error";
-
-export type FirebaseResponse = {
+export interface FirebaseResponse {
   error?: Error;
   credentials?: firebase.auth.UserCredential;
-};
+}

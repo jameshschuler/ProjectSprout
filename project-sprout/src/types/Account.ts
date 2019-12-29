@@ -1,6 +1,6 @@
 import { Project } from "./Project";
 
-export type Account = {
+export interface Account {
   projects: Project[];
   isLocalOnly: boolean;
-};
+}

@@ -29,7 +29,7 @@ export const signup = (email: string, password: string) => async (
  * We already have a logged in user but just need to update our redux state
  * @param payload
  */
-export const loginLocally = (payload: User) => (dispatch: any) => {
+export const loginLocally = (payload: User | null) => (dispatch: any) => {
   dispatch({ type: ActionType.LOGIN, payload });
 };
 

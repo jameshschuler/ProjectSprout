@@ -4,12 +4,6 @@ import { connect } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
 import { loginLocally, signout } from "../src/store/actions/AuthActions";
 import { loadProjectData } from "../src/store/actions/ProjectActions";
-import "../src/styles/styles.scss";
-import LoginModal from "./components/account/LoginModal";
-import SignUpModal from "./components/account/SignUpModal";
-import Content from "./components/layout/Content";
-import Footer from "./components/layout/Footer";
-import Navbar from "./components/layout/Navbar";
 import { firebaseConfig } from "./config/Firebase";
 import { RootState } from "./store/reducers/RootReducer";
 import { User } from "./types/User";
@@ -22,8 +16,8 @@ declare global {
 
 interface AppProps {
   loadProjectData: () => any;
-  loginLocally: (payload: User) => any;
-  isAuthenticated: boolean;
+  loginLocally: (payload: User | null) => any;
+  isAuthenticated?: boolean;
   signout: () => any;
 }
 
@@ -35,19 +29,21 @@ const App: React.FC<AppProps> = ({
 }) => {
   useEffect(() => {
     // Firebase
+    console.log(isAuthenticated);
     firebase.initializeApp(firebaseConfig);
 
     firebase.auth().onAuthStateChanged((user: firebase.User | null) => {
+      let payload: User | null = null;
       if (user) {
         const { email, emailVerified, uid } = user;
-        const payload: User = {
+        payload = {
           email,
           emailVerified,
           uid
         };
-
-        loginLocally(payload);
       }
+
+      loginLocally(payload);
     });
 
     loadProjectData();
@@ -55,20 +51,14 @@ const App: React.FC<AppProps> = ({
 
   return (
     <Router>
-      <div className="App">
-        <Navbar isAuthenticated={isAuthenticated} signout={signout} />
-        <Content isAuthenticated={isAuthenticated} />
-        <Footer />
-        <SignUpModal />
-        <LoginModal />
-      </div>
+      <div className="App"></div>
     </Router>
   );
 };
 
 const mapStateToProps = (state: RootState) => {
   return {
-    isAuthenticated: !!state.auth.user
+    isAuthenticated: state.auth.isAuthenicated
   };
 };
 

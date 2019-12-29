@@ -28,6 +28,7 @@ export interface GlobalState {
 
 export interface AuthState {
   user: any;
+  isAuthenicated?: boolean;
 }
 
 const rootReducer = combineReducers({
